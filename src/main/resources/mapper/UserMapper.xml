@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 跟标签，namespace：命名空间，映射文件的唯一标识 -->
+<mapper namespace="UserMapper">
+    <!-- 查询的Statement，id：在同一命名空间下的唯一标识，resultType：结果集的封装类型 -->
+    <select id="queryUserById" resultType="User" >
+        select * from tb_user where id = #{id}
+    </select>
+
+    <!-- 定义查询所有用户的select标签 -->
+    <select id="getAll" resultType="com.feng.domain.User">
+        select * from tb_user
+    </select>
+
+    <!-- 添加的标签 -->
+    <insert id="add" parameterType="com.feng.domain.User">
+        INSERT  INTO `tb_user`
+        (`id`,`user_name`,`password`,`name`,`age`,`sex`,`birthday`,`created`,`updated`)
+        VALUES
+        (null,#{userName},#{password},#{name},#{age},#{sex},#{birthday},#{created},#{updated})
+    </insert>
+
+    <!-- 更新操作 -->
+    <update id="update" parameterType="com.feng.domain.User">
+        update tb_user set
+        user_name=#{userName},
+        password=#{password},
+        name=#{name},
+        age=#{age},
+        sex=#{sex},
+        birthday=#{birthday},
+        updated=NOW()
+        where id=#{id}
+    </update>
+
+    <!-- 删除操作 -->
+    <delete id="delById">
+        delete from tb_user where id=#{value}
+    </delete>
+</mapper>
